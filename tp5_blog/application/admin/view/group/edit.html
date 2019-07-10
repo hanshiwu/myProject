@@ -1,0 +1,77 @@
+{extend name='base' /}
+{block name='content'}
+<div class="col-xs-12 col-sm-9 col-lg-10">
+    <ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px ;margin-bottom:10px;">
+        <li>
+            <a ><i class="fa fa-cogs"></i>
+                用户组管理</a>
+        </li>
+        <li class="active">
+            <a >用户组添加</a>
+        </li>
+
+    </ol>
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="{:url('index')}">用户组列表</a></li>
+        <li class="active"><a href="{:url('edit')}">编辑用户组</a></li>
+    </ul>
+    <form class="form-horizontal" id="form" action="" method="post">
+        <input type="hidden" name="id" value="{:input('param.id')}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">编辑用户组</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="title" class="col-sm-2 control-label">用户组名</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="title" value="{$oldData.title}" name="title"  class="form-control" placeholder="请输入用户组中文名称">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    分配权限
+                    |
+                    <input type="checkbox" id="all">全选
+                </h3>
+            </div>
+            {foreach name='rules' item='vo' key='k'}
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading father-all">
+                        <h3 class="panel-title">
+                            {$k}
+                            |
+                            <input type="checkbox" class="son-all">全选
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="checkbox">
+                            {foreach name='vo' item='val'}
+                            <label>
+                                <input type="checkbox" name="rules[]" value="{$val['id']}" {if condition="in_array($val['id'],$oldData['rules'])"}checked{/if}>{$val['title']}
+                            </label>&nbsp;&nbsp;
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/foreach}
+        </div>
+        <button class="btn btn-primary" type="submit">确定</button>
+    </form>
+    <script  type="text/javascript">
+        $(function () {
+            $('#all').click(function () {
+                $(this).parents('.panel-default').find('.panel-body input[type=checkbox]').prop('checked',$(this).prop('checked'));
+            })
+            $('.son-all').click(function () {
+                $(this).parents('.father-all').siblings('.panel-body').find('input[type=checkbox]').prop('checked',$(this).prop('checked'))
+            })
+        })
+    </script>
+</div>
+{/block}

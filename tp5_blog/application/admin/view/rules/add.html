@@ -1,0 +1,59 @@
+{extend name='base' /}
+{block name='content'}
+<div class="col-xs-12 col-sm-9 col-lg-10">
+    <ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px ;margin-bottom:10px;">
+        <li>
+            <a ><i class="fa fa-cogs"></i>
+                规则管理</a>
+        </li>
+        <li class="active">
+            <a >规则添加</a>
+        </li>
+
+    </ol>
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="{:url('rules/index')}">规则列表</a></li>
+        <li class="active"><a href="{:url('rules/add')}">添加规则</a></li>
+    </ul>
+    <form class="form-horizontal" id="form" action="" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加规则</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="title" class="col-sm-2 control-label">规则中文名称</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="title" name="title"  class="form-control" placeholder="请输入规则中文名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">规则标识</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="name" name="name"  class="form-control" placeholder="请输入规则标识">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pid" class="col-sm-2 control-label">父规则</label>
+                    <div class="col-sm-9">
+                        <select class="js-example-basic-single form-control" name="pid" id="pid">
+                            <option value="0">顶级规则</option>
+                            {foreach name='field' item='vo'}
+                            <option value="{$vo.id}">{$vo._title}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nav" class="col-sm-2 control-label">导航</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="nav" name="nav"  class="form-control" placeholder="请输入规则标识">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">确定</button>
+    </form>
+
+</div>
+{/block}

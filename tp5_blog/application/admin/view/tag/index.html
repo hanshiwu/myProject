@@ -1,0 +1,61 @@
+{extend name='base' /}
+{block name='content'}
+    <!--右侧主题部分 start-->
+    <div class="col-xs-12 col-sm-9 col-lg-10">
+        <ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
+            <li>
+                <a href="javascript:void(0)"><i class="fa fa-cogs"></i>
+                    标签管理</a>
+            </li>
+            <li class="active">
+                <a href="javascript:void(0)">标签展示</a>
+            </li>
+        </ol>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="{:url('tag/index')}">标签管理</a></li>
+            <li><a href="{:url('tag/tag')}">添加标签</a></li>
+        </ul>
+        <form action="" method="post">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="80">编号</th>
+                            <th>标签名</th>
+                            <th width="200">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach name='list' item='vo'}
+                        <tr>
+                            <td>{$vo['tag_id']}</td>
+                            <td>{$vo['tag_name']}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{:url('tag',['tag_id'=>$vo['tag_id']])}">编辑</a>&nbsp;|
+                                    <a href="javascript:;" onclick="del({$vo['tag_id']})">删除</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+        <div class="pagination pagination-sm pull-right">
+            {$page}
+        </div>
+    </div>
+<script type="text/javascript">
+    function del(tag_id) {
+        require(['hdjs'], function (hdjs) {
+            hdjs.confirm('确定删除吗?', function () {
+                location.href = "{:url('del')}"+"?tag_id="+tag_id;
+            })
+        })
+    }
+</script>
+    <!--右侧主题部分 end-->
+{/block}
